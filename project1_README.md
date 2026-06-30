@@ -1,4 +1,4 @@
-# Project 1: AI SaaS Churn Analysis
+#  AI SaaS Churn Analysis
 
 ## Overview
 This project analyzes user churn for a fictional AI-powered SaaS platform. It identifies which behavioral signals — AI feature adoption, support ticket volume, login recency, and usage volume — most strongly predict whether a customer cancels their subscription. The goal is to turn raw usage data into an actionable retention strategy.
