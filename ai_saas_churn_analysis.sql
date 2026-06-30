@@ -1,9 +1,8 @@
--- ============================================================
--- PROJECT 1: AI SaaS Churn Analysis
+
+--  AI SaaS Churn Analysis
 -- Domain: SaaS | Tools: SQL (PostgreSQL / SQLite compatible)
 -- Analyst: Piyush Palkatwar | Date: 2026-06-30
 -- Trend: Predicting churn using AI feature usage signals
--- ============================================================
 
 -- ─────────────────────────────────────────────
 -- STEP 1: CREATE TABLE & LOAD DATA
@@ -28,10 +27,9 @@ CREATE TABLE IF NOT EXISTS ai_saas_users (
 -- Load CSV: COPY ai_saas_users FROM 'ai_saas_users.csv' CSV HEADER;
 -- For SQLite: use .import ai_saas_users.csv ai_saas_users
 
-
--- ─────────────────────────────────────────────
+--
 -- STEP 2: OVERVIEW — CHURN RATE BY PLAN
--- ─────────────────────────────────────────────
+-- 
 
 -- Business Question: Which subscription plan has the highest churn?
 -- Insight helps PMs decide where to invest in retention campaigns.
@@ -52,10 +50,9 @@ Expected Insight:
   This guides upsell strategy: convert Starter → Pro before they churn
 */
 
-
--- ─────────────────────────────────────────────
+-- 
 -- STEP 3: AI FEATURE ADOPTION vs CHURN
--- ─────────────────────────────────────────────
+-- 
 
 -- Business Question: Do users who adopt more AI features churn less?
 -- This is the core GenAI product metric for 2024-25.
@@ -79,9 +76,9 @@ Expected Insight:
 */
 
 
--- ─────────────────────────────────────────────
+-- 
 -- STEP 4: DAYS TO CHURN (TIME-TO-CHURN ANALYSIS)
--- ─────────────────────────────────────────────
+-- 
 
 -- Business Question: How quickly do churned users leave?
 -- Helps define the intervention window for CSM / automated nudges.
@@ -115,9 +112,9 @@ Expected Insight:
 */
 
 
--- ─────────────────────────────────────────────
+-- 
 -- STEP 5: SUPPORT TICKET CHURN SIGNAL
--- ─────────────────────────────────────────────
+-- 
 
 -- Business Question: Are high-support users more likely to churn?
 -- Frequent tickets = frustration = early churn warning.
@@ -143,9 +140,9 @@ Expected Insight:
 */
 
 
--- ─────────────────────────────────────────────
+-- 
 -- STEP 6: DAYS SINCE LAST LOGIN (RECENCY RISK)
--- ─────────────────────────────────────────────
+-- 
 
 -- Business Question: How stale is the user base right now?
 -- Active users not logging in for 30+ days are high churn risk.
@@ -171,9 +168,9 @@ WHERE churned = 0
 ORDER BY days_since_login DESC;
 
 
--- ─────────────────────────────────────────────
+-- 
 -- STEP 7: CHURN RATE BY INDUSTRY & PLAN
--- ─────────────────────────────────────────────
+-- 
 
 -- Business Question: Which industry + plan combos have highest churn?
 -- Helps BD / GTM teams prioritize industry-specific retention plays.
@@ -190,9 +187,9 @@ HAVING COUNT(*) >= 2
 ORDER BY churn_rate_pct DESC;
 
 
--- ─────────────────────────────────────────────
+-- 
 -- STEP 8: REVENUE AT RISK (CHURNED + AT-RISK MRR)
--- ─────────────────────────────────────────────
+-- 
 
 -- Business Question: What is the monthly revenue impact of churn?
 -- This converts churn % into a dollar figure for leadership dashboards.
@@ -212,9 +209,9 @@ GROUP BY plan_type
 ORDER BY lost_mrr_usd DESC;
 
 
--- ─────────────────────────────────────────────
+-- 
 -- STEP 9: COHORT RETENTION — SIGNUP MONTH COHORTS
--- ─────────────────────────────────────────────
+-- 
 
 -- Business Question: Are recent cohorts retaining better than older ones?
 -- Shows if product improvements are reducing churn over time.
@@ -239,9 +236,9 @@ Expected Insight:
 */
 
 
--- ─────────────────────────────────────────────
+-- 
 -- STEP 10: CHURN PREDICTION SCORING VIEW
--- ─────────────────────────────────────────────
+-- 
 
 -- Composite risk score: higher = more likely to churn
 -- Useful as input to a Python ML model or CRM automation trigger
@@ -287,11 +284,9 @@ WHERE churned = 0
 ORDER BY churn_risk_score DESC
 LIMIT 10;
 
--- ============================================================
--- END OF PROJECT 1
+-- END OF The  PROJECT 
 -- Key Takeaways:
 -- 1. AI feature adoption is the strongest churn predictor
 -- 2. Starter plan users churn fastest (within 30-45 days)
 -- 3. 5+ support tickets → 80%+ churn risk
 -- 4. Churn risk score view can feed a Python ML pipeline
--- ============================================================
