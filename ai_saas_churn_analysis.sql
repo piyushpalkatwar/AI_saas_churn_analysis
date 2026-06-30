@@ -4,9 +4,8 @@
 -- Analyst: Piyush Palkatwar | Date: 2026-06-30
 -- Trend: Predicting churn using AI feature usage signals
 
--- 
+
 -- STEP 1: CREATE TABLE & LOAD DATA
--- ─────────────────────────────────────────────
 
 CREATE TABLE IF NOT EXISTS ai_saas_users (
     user_id            VARCHAR(10) PRIMARY KEY,
@@ -27,9 +26,7 @@ CREATE TABLE IF NOT EXISTS ai_saas_users (
 -- Load CSV: COPY ai_saas_users FROM 'ai_saas_users.csv' CSV HEADER;
 -- For SQLite: use .import ai_saas_users.csv ai_saas_users
 
---
 -- STEP 2: OVERVIEW — CHURN RATE BY PLAN
--- 
 
 -- Business Question: Which subscription plan has the highest churn?
 -- Insight helps PMs decide where to invest in retention campaigns.
@@ -50,9 +47,7 @@ Expected Insight:
   This guides upsell strategy: convert Starter → Pro before they churn
 */
 
--- 
 -- STEP 3: AI FEATURE ADOPTION vs CHURN
--- 
 
 -- Business Question: Do users who adopt more AI features churn less?
 -- This is the core GenAI product metric for 2024-25.
@@ -75,10 +70,7 @@ Expected Insight:
   → Product team should push onboarding flows for AI feature activation
 */
 
-
--- 
 -- STEP 4: DAYS TO CHURN (TIME-TO-CHURN ANALYSIS)
--- 
 
 -- Business Question: How quickly do churned users leave?
 -- Helps define the intervention window for CSM / automated nudges.
@@ -110,11 +102,8 @@ Expected Insight:
   Pro users churn around day 60-90       → post-onboarding fatigue
   Intervention must happen within first 30 days
 */
-
-
--- 
--- STEP 5: SUPPORT TICKET CHURN SIGNAL
--- 
+ 
+-- STEP 5: SUPPORT TICKET CHURN SIGNAL 
 
 -- Business Question: Are high-support users more likely to churn?
 -- Frequent tickets = frustration = early churn warning.
@@ -139,10 +128,7 @@ Expected Insight:
   → Proactive CSM outreach triggered at ticket 3 could reduce churn
 */
 
-
--- 
 -- STEP 6: DAYS SINCE LAST LOGIN (RECENCY RISK)
--- 
 
 -- Business Question: How stale is the user base right now?
 -- Active users not logging in for 30+ days are high churn risk.
@@ -168,9 +154,7 @@ WHERE churned = 0
 ORDER BY days_since_login DESC;
 
 
--- 
 -- STEP 7: CHURN RATE BY INDUSTRY & PLAN
--- 
 
 -- Business Question: Which industry + plan combos have highest churn?
 -- Helps BD / GTM teams prioritize industry-specific retention plays.
@@ -187,9 +171,7 @@ HAVING COUNT(*) >= 2
 ORDER BY churn_rate_pct DESC;
 
 
--- 
 -- STEP 8: REVENUE AT RISK (CHURNED + AT-RISK MRR)
--- 
 
 -- Business Question: What is the monthly revenue impact of churn?
 -- This converts churn % into a dollar figure for leadership dashboards.
@@ -208,10 +190,7 @@ FROM ai_saas_users
 GROUP BY plan_type
 ORDER BY lost_mrr_usd DESC;
 
-
--- 
 -- STEP 9: COHORT RETENTION — SIGNUP MONTH COHORTS
--- 
 
 -- Business Question: Are recent cohorts retaining better than older ones?
 -- Shows if product improvements are reducing churn over time.
@@ -235,10 +214,7 @@ Expected Insight:
   Later cohorts should improve if AI onboarding was enhanced
 */
 
-
--- 
 -- STEP 10: CHURN PREDICTION SCORING VIEW
--- 
 
 -- Composite risk score: higher = more likely to churn
 -- Useful as input to a Python ML model or CRM automation trigger
