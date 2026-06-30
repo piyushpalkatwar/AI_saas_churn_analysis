@@ -4,7 +4,7 @@
 -- Analyst: Piyush Palkatwar | Date: 2026-06-30
 -- Trend: Predicting churn using AI feature usage signals
 
--- ─────────────────────────────────────────────
+-- 
 -- STEP 1: CREATE TABLE & LOAD DATA
 -- ─────────────────────────────────────────────
 
